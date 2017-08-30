@@ -1,0 +1,46 @@
+/* Media Queries */
+
+// 769px and above
+@mixin tablet-and-above
+    @media (min-width: 769px)
+        @content
+
+// 768px and below
+@mixin tablet-and-below
+    @media (max-width: 768px)
+        @content
+
+// 426px and above
+@mixin mobile-and-above
+    @media (min-width: 426px)
+        @content
+
+// 425px and below
+@mixin mobile-and-below
+    @media (max-width: 425px)
+        @content
+
+
+// Main title (thin)
+@mixin font-title
+    font-family: $font-title
+    font-weight: $weight-normal
+    color: $title-color
+
+// Title Emphasis (bold)
+@mixin font-title-bold
+    font-family: $font-title
+    font-weight: $weight-semibold
+    color: $title-color
+
+// Main Text (thin)
+@mixin font-text
+    font-family: $font-text
+    font-weight: $weight-normal
+    color: $text-color
+
+// Text Emphasis (bold) 
+@mixin font-text-bold
+    font-family: $font-text
+    font-weight: $weight-bold
+    color: $text-color

@@ -1,0 +1,16 @@
+## editor settings
+.vscode
+
+## env
+.arch
+.env
+scripts/config/config.json
+
+## dependencies
+node_modules
+elm-stuff
+
+## build artifacts
+public
+dist
+src/bundleVisualizer.html
