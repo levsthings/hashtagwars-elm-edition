@@ -1,59 +1,33 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.Events exposing (onClick)
-
-
-type alias Model =
-    { count : Int
-    , increment : Int
-    , decrement : Int
-    }
-
-
-type Msg
-    = Increment
-    | Decrement
-
-
-initialModel : Model
-initialModel =
-    { count = 0
-    , increment = 0
-    , decrement = 0
-    }
-
-
-update : Msg -> Model -> Model
-update msg model =
-    case msg of
-        Increment ->
-            { model
-                | count = model.count + 1
-                , increment = model.increment + 1
-            }
-
-        Decrement ->
-            { model
-                | count = model.count - 1
-                , decrement = model.decrement + 1
-            }
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ button [ onClick Decrement ] [ text "-" ]
-        , div [] [ text (toString model.count) ]
-        , button [ onClick Increment ] [ text "+" ]
-        , h3 [] [ text ("- clicked " ++ (toString model.decrement) ++ " times") ]
-        , h3 [] [ text ("+ clicked " ++ (toString model.increment) ++ " times") ]
-        ]
+import Html.Attributes exposing (class)
 
 
 main =
-    Html.beginnerProgram
-        { model = initialModel
-        , view = view
-        , update = update
-        }
+    div []
+        [ div []
+            [ div [ class "header has-text-centered" ]
+                [ h1 [ class "app-title" ] [ text "hashtagwars" ]
+                ]
+            ]
+        , div [ class "main-screen" ]
+            [ div
+                [ class "columns" ]
+                [ div [ class "column is-3 is-offset-3 has-text-centered" ]
+                    [ h4 [] [ text "First Hashtag" ]
+                    ]
+                , div [ class "column is-3 has-text-centered" ]
+                    [ h4 [] [ text "Second Hashtag" ]
+                    ]
+                ]
+            , div [ class "has-text-centered" ]
+                [ h4 [] [ text "Fight!" ]
+                ]
+            , div [ class "columns" ]
+                [ div [ class "column is-6 is-offset-3 has-text-centered" ]
+                    [ h4 [] [ text "Results!" ]
+                    ]
+                ]
+            ]
+        ]
