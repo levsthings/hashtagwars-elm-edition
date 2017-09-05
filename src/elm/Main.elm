@@ -70,8 +70,8 @@ update msg model =
 
 
 modelToString : Model -> String
-modelToString model =
-    "tags: {" ++ toString model.firstHashtag ++ ", " ++ toString model.secondHashtag ++ "}"
+modelToString { firstHashtag, secondHashtag } =
+    "tags: {" ++ toString firstHashtag ++ ", " ++ toString secondHashtag ++ "}"
 
 
 
