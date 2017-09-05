@@ -23,6 +23,7 @@ main =
 type alias Model =
     { firstHashtag : String
     , secondHashtag : String
+    , incomingData : String
     }
 
 
@@ -32,7 +33,7 @@ type alias Tags =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "" "", Cmd.none )
+    ( Model "" "" "", Cmd.none )
 
 
 socketUrl : String
@@ -47,6 +48,7 @@ socketUrl =
 type Msg
     = FirstHashtag String
     | SecondHashtag String
+    | IncomingData String
     | SendToSocket
 
 
@@ -68,6 +70,9 @@ update msg model =
             , WebSocket.send socketUrl (modelToString model)
             )
 
+        IncomingData str ->
+            ( { model | incomingData = str }, Cmd.none )
+
 
 modelToString : Model -> String
 modelToString { firstHashtag, secondHashtag } =
@@ -80,7 +85,7 @@ modelToString { firstHashtag, secondHashtag } =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    WebSocket.listen socketUrl IncomingData
 
 
 
@@ -116,7 +121,7 @@ view model =
                 ]
             , div [ class "columns" ]
                 [ div [ class "column is-6 is-offset-3 has-text-centered" ]
-                    []
+                    [ h4 [] [ text model.incomingData ] ]
                 ]
             ]
         ]
