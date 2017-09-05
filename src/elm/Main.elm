@@ -3,8 +3,10 @@ module Main exposing (..)
 import Html exposing (Html, button, div, h1, h4, input, text)
 import Html.Attributes exposing (class, placeholder, type_)
 import Html.Events exposing (onClick, onInput)
+import WebSocket
 
 
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -24,9 +26,18 @@ type alias Model =
     }
 
 
+type alias Tags =
+    List String
+
+
 init : ( Model, Cmd Msg )
 init =
     ( Model "" "", Cmd.none )
+
+
+socketUrl : String
+socketUrl =
+    "wss://echo.websocket.org"
 
 
 
@@ -36,7 +47,7 @@ init =
 type Msg
     = FirstHashtag String
     | SecondHashtag String
-    | SetHashtags
+    | SendToSocket
 
 
 
@@ -52,8 +63,15 @@ update msg model =
         SecondHashtag text ->
             ( { model | secondHashtag = text }, Cmd.none )
 
-        SetHashtags ->
-            ( model, Cmd.none )
+        SendToSocket ->
+            ( model
+            , WebSocket.send socketUrl (modelToString model)
+            )
+
+
+modelToString : Model -> String
+modelToString model =
+    "tags: {" ++ toString model.firstHashtag ++ ", " ++ toString model.secondHashtag ++ "}"
 
 
 
@@ -94,7 +112,7 @@ view model =
                     ]
                 ]
             , div [ class "has-text-centered" ]
-                [ button [ class "htw-controls-button button is-medium", onClick SetHashtags ] [ text "Fight!" ]
+                [ button [ class "htw-controls-button button is-medium", onClick SendToSocket ] [ text "Fight!" ]
                 ]
             , div [ class "columns" ]
                 [ div [ class "column is-6 is-offset-3 has-text-centered" ]
