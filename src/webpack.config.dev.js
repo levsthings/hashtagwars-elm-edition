@@ -62,14 +62,6 @@ module.exports = {
                         debug: true
                     }
                 }]
-            },
-            {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'image-webpack-loader'
-                    }
-                ]
             }
         ]
     },
